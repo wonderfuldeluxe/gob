@@ -1,0 +1,194 @@
+[gd_scene load_steps=31 format=2]
+
+[ext_resource path="res://scripts/player.gd" type="Script" id=1]
+[ext_resource path="res://sprites/cat.png" type="Texture" id=2]
+[ext_resource path="res://scripts/statemachine.gd" type="Script" id=3]
+[ext_resource path="res://scripts/idle.gd" type="Script" id=4]
+[ext_resource path="res://scripts/walking.gd" type="Script" id=5]
+[ext_resource path="res://scripts/jumping.gd" type="Script" id=6]
+[ext_resource path="res://scripts/damaged.gd" type="Script" id=7]
+[ext_resource path="res://scripts/reflect.gd" type="Script" id=8]
+[ext_resource path="res://sprites/catowie.png" type="Texture" id=9]
+[ext_resource path="res://sprites/catjump.png" type="Texture" id=10]
+[ext_resource path="res://sprites/catfall.png" type="Texture" id=11]
+[ext_resource path="res://sprites/catcling.png" type="Texture" id=12]
+[ext_resource path="res://scripts/wallcling.gd" type="Script" id=13]
+[ext_resource path="res://sprites/catreflect.png" type="Texture" id=14]
+
+[sub_resource type="AtlasTexture" id=15]
+flags = 4
+atlas = ExtResource( 14 )
+region = Rect2( 0, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=16]
+flags = 4
+atlas = ExtResource( 14 )
+region = Rect2( 64, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=17]
+flags = 4
+atlas = ExtResource( 14 )
+region = Rect2( 128, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=7]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 64, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=10]
+flags = 4
+atlas = ExtResource( 10 )
+region = Rect2( 0, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=11]
+flags = 4
+atlas = ExtResource( 10 )
+region = Rect2( 64, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=12]
+flags = 4
+atlas = ExtResource( 11 )
+region = Rect2( 0, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=13]
+flags = 4
+atlas = ExtResource( 11 )
+region = Rect2( 64, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=8]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 0, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=9]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 64, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=14]
+flags = 4
+atlas = ExtResource( 12 )
+region = Rect2( 0, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=5]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=6]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 64, 0, 64, 64 )
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ SubResource( 15 ), SubResource( 16 ), SubResource( 17 ) ],
+"loop": true,
+"name": "reflect",
+"speed": 12.0
+}, {
+"frames": [ SubResource( 7 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 10 ), SubResource( 11 ) ],
+"loop": true,
+"name": "jump",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 12 ), SubResource( 13 ) ],
+"loop": true,
+"name": "fall",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 8 ), SubResource( 9 ) ],
+"loop": true,
+"name": "owie",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 14 ) ],
+"loop": true,
+"name": "wallcling",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 5 ), SubResource( 6 ) ],
+"loop": true,
+"name": "walk",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=18]
+extents = Vector2( 11, 15 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 5.5, 16.5 )
+
+[node name="player" type="KinematicBody2D"]
+collision_layer = 3
+collision_mask = 11
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 3 )
+animation = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 1 )
+shape = SubResource( 18 )
+
+[node name="reflectbox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="reflectbox"]
+position = Vector2( 22.5, -1.5 )
+shape = SubResource( 4 )
+disabled = true
+
+[node name="unactionable" type="Timer" parent="."]
+wait_time = 0.8
+one_shot = true
+
+[node name="iframes" type="Timer" parent="."]
+wait_time = 1.3
+one_shot = true
+
+[node name="transitiondelay" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="wallclingdelay" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="statemachine" type="Node" parent="."]
+script = ExtResource( 3 )
+initial_state = NodePath("idle")
+
+[node name="idle" type="Node" parent="statemachine"]
+script = ExtResource( 4 )
+
+[node name="walking" type="Node" parent="statemachine"]
+script = ExtResource( 5 )
+
+[node name="jumping" type="Node" parent="statemachine"]
+script = ExtResource( 6 )
+
+[node name="damaged" type="Node" parent="statemachine"]
+script = ExtResource( 7 )
+
+[node name="reflect" type="Node" parent="statemachine"]
+script = ExtResource( 8 )
+
+[node name="wallcling" type="Node" parent="statemachine"]
+script = ExtResource( 13 )
+
+[connection signal="area_entered" from="reflectbox" to="." method="_on_reflectbox_area_entered"]
+[connection signal="timeout" from="unactionable" to="statemachine/damaged" method="_on_unactionable_timeout"]
+[connection signal="timeout" from="iframes" to="." method="_on_iframes_timeout"]
+[connection signal="timeout" from="transitiondelay" to="." method="_on_transitiondelay_timeout"]
+[connection signal="timeout" from="wallclingdelay" to="." method="_on_wallclingdelay_timeout"]

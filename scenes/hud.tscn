@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://sprites/healthbar.png" type="Texture" id=1]
+[ext_resource path="res://sprites/hp.png" type="Texture" id=2]
+[ext_resource path="res://sprites/hpempty.png" type="Texture" id=3]
+[ext_resource path="res://scripts/hud.gd" type="Script" id=4]
+
+[node name="hud" type="CanvasLayer"]
+offset = Vector2( 35, 50 )
+transform = Transform2D( 1, 0, 0, 1, 35, 50 )
+script = ExtResource( 4 )
+
+[node name="healthbar" type="TextureProgress" parent="."]
+anchor_left = -0.071
+anchor_top = -0.119
+anchor_right = 0.071
+anchor_bottom = 0.119
+margin_left = 0.0800018
+margin_top = 0.130001
+margin_right = -34.08
+margin_bottom = -32.13
+rect_scale = Vector2( 2, 2 )
+texture_under = ExtResource( 3 )
+texture_over = ExtResource( 1 )
+texture_progress = ExtResource( 2 )
+
+[node name="Label" type="Label" parent="."]
+anchor_left = -0.056
+anchor_top = 0.037
+anchor_right = 0.027
+anchor_bottom = 0.089
+margin_left = -0.119999
+margin_top = 0.0100002
+margin_right = 0.04
+margin_bottom = -0.0300007

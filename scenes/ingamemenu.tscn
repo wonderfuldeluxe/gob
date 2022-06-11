@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://scripts/ingamemenu.gd" type="Script" id=1]
+[ext_resource path="res://sprites/placeholdermenu.png" type="Texture" id=2]
+[ext_resource path="res://sprites/unpause.png" type="Texture" id=3]
+[ext_resource path="res://sprites/menubackground.png" type="Texture" id=4]
+[ext_resource path="res://sprites/restart.png" type="Texture" id=5]
+[ext_resource path="res://sprites/exit.png" type="Texture" id=6]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+offset = Vector2( 250, 135 )
+scale = Vector2( 1.75, 1.75 )
+transform = Transform2D( 1.75, 0, 0, 1.75, 250, 135 )
+
+[node name="ingamemenu" type="Popup" parent="."]
+pause_mode = 2
+popup_exclusive = true
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="menu" type="Sprite" parent="ingamemenu"]
+texture = ExtResource( 4 )
+
+[node name="unpause" type="Sprite" parent="ingamemenu"]
+position = Vector2( 0, -48 )
+texture = ExtResource( 3 )
+
+[node name="restart" type="Sprite" parent="ingamemenu"]
+position = Vector2( 0, -17 )
+texture = ExtResource( 5 )
+
+[node name="temp2" type="Sprite" parent="ingamemenu"]
+position = Vector2( 0, 16 )
+texture = ExtResource( 2 )
+
+[node name="exit" type="Sprite" parent="ingamemenu"]
+position = Vector2( 0, 48 )
+texture = ExtResource( 6 )
+
+[node name="unpausetimer" type="Timer" parent="ingamemenu"]
+wait_time = 0.1
+one_shot = true
+
+[connection signal="timeout" from="ingamemenu/unpausetimer" to="ingamemenu" method="_on_unpausetimer_timeout"]

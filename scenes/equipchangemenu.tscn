@@ -1,0 +1,108 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://scripts/equipchangemenu.gd" type="Script" id=1]
+[ext_resource path="res://sprites/equipmenu2.png" type="Texture" id=2]
+[ext_resource path="res://sprites/cat.png" type="Texture" id=3]
+[ext_resource path="res://sprites/pickles.png" type="Texture" id=4]
+[ext_resource path="res://sprites/catreflect.png" type="Texture" id=5]
+[ext_resource path="res://sprites/catcling.png" type="Texture" id=6]
+[ext_resource path="res://sprites/arrow.png" type="Texture" id=7]
+[ext_resource path="res://sprites/done.png" type="Texture" id=8]
+
+[sub_resource type="AtlasTexture" id=7]
+flags = 4
+atlas = ExtResource( 3 )
+region = Rect2( 64, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=21]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=22]
+flags = 4
+atlas = ExtResource( 6 )
+region = Rect2( 0, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=15]
+flags = 4
+atlas = ExtResource( 5 )
+region = Rect2( 0, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=16]
+flags = 4
+atlas = ExtResource( 5 )
+region = Rect2( 64, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=17]
+flags = 4
+atlas = ExtResource( 5 )
+region = Rect2( 128, 0, 64, 64 )
+
+[sub_resource type="SpriteFrames" id=23]
+animations = [ {
+"frames": [ SubResource( 7 ) ],
+"loop": true,
+"name": "empty",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 21 ) ],
+"loop": true,
+"name": "food",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 22 ) ],
+"loop": true,
+"name": "spike",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 15 ), SubResource( 16 ), SubResource( 17 ) ],
+"loop": true,
+"name": "shield",
+"speed": 5.0
+} ]
+
+[node name="equipchange" type="CanvasLayer"]
+pause_mode = 2
+offset = Vector2( 250, 135 )
+transform = Transform2D( 1, 0, 0, 1, 250, 135 )
+script = ExtResource( 1 )
+
+[node name="menu" type="Sprite" parent="."]
+scale = Vector2( 2, 2 )
+texture = ExtResource( 2 )
+
+[node name="equipped1" type="AnimatedSprite" parent="."]
+position = Vector2( 44, -88 )
+frames = SubResource( 23 )
+animation = "empty"
+
+[node name="equipped2" type="AnimatedSprite" parent="."]
+position = Vector2( 12, -47 )
+frames = SubResource( 23 )
+animation = "empty"
+
+[node name="equipped3" type="AnimatedSprite" parent="."]
+position = Vector2( 84, -47 )
+frames = SubResource( 23 )
+animation = "empty"
+
+[node name="equipped4" type="AnimatedSprite" parent="."]
+position = Vector2( 44, -6 )
+frames = SubResource( 23 )
+animation = "empty"
+
+[node name="cursor" type="Sprite" parent="."]
+position = Vector2( 16, -86 )
+texture = ExtResource( 7 )
+
+[node name="done" type="Sprite" parent="."]
+position = Vector2( 55, 50 )
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 8 )
+
+[node name="unpausetimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[connection signal="timeout" from="unpausetimer" to="." method="_on_unpausetimer_timeout"]

@@ -1,0 +1,71 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://scenes/mainnode.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/tile.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/camera.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/hud.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/ingamemenu.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/scenetransition.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/enemy.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scripts/scenepointers/test1pointer.gd" type="Script" id=9]
+[ext_resource path="res://sprites/main.png" type="Texture" id=10]
+[ext_resource path="res://sprites/test1.png" type="Texture" id=11]
+[ext_resource path="res://sprites/test2.png" type="Texture" id=12]
+
+[node name="main" instance=ExtResource( 1 )]
+playerScene = ExtResource( 3 )
+cameraScene = ExtResource( 4 )
+hudScene = ExtResource( 5 )
+pauseScene = ExtResource( 6 )
+
+[node name="tiles" type="Node" parent="." index="0"]
+
+[node name="tile" parent="tiles" index="0" instance=ExtResource( 2 )]
+position = Vector2( 28, 254 )
+scale = Vector2( 7, 2 )
+
+[node name="tile2" parent="tiles" index="1" instance=ExtResource( 2 )]
+position = Vector2( 228, 254 )
+scale = Vector2( 7, 2 )
+
+[node name="tile3" parent="tiles" index="2" instance=ExtResource( 2 )]
+position = Vector2( 244, 652 )
+scale = Vector2( 30, 2 )
+
+[node name="tile4" parent="tiles" index="3" instance=ExtResource( 2 )]
+position = Vector2( -12, 468 )
+scale = Vector2( 2, 25 )
+
+[node name="tile5" parent="tiles" index="4" instance=ExtResource( 2 )]
+position = Vector2( 549, 468 )
+scale = Vector2( 2, 25 )
+
+[node name="startingpoint" type="Position2D" parent="." index="1"]
+position = Vector2( 4, 636 )
+
+[node name="scenetransition" parent="." index="2" instance=ExtResource( 7 )]
+position = Vector2( 228, 227 )
+
+[node name="Sprite" type="Sprite" parent="scenetransition" index="1"]
+texture = ExtResource( 10 )
+
+[node name="scenetransition2" parent="." index="3" instance=ExtResource( 7 )]
+position = Vector2( 12, 229 )
+
+[node name="Sprite" type="Sprite" parent="scenetransition2" index="1"]
+texture = ExtResource( 12 )
+
+[node name="enemy" parent="." index="4" instance=ExtResource( 8 )]
+position = Vector2( 274, 226 )
+
+[node name="scenepointer" type="Node2D" parent="." index="5"]
+script = ExtResource( 9 )
+
+[node name="Sprite" type="Sprite" parent="." index="6"]
+position = Vector2( 119, 192 )
+scale = Vector2( 2.96875, 2.125 )
+texture = ExtResource( 11 )
+
+[node name="Camera2D" parent="." index="7" instance=ExtResource( 4 )]
+position = Vector2( 96, 599 )

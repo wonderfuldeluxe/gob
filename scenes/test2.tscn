@@ -1,0 +1,46 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://scenes/mainnode.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/tile.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/hud.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/player.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/ingamemenu.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/camera.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/scenetransition.tscn" type="PackedScene" id=7]
+[ext_resource path="res://sprites/test1.png" type="Texture" id=8]
+[ext_resource path="res://sprites/test2.png" type="Texture" id=9]
+[ext_resource path="res://sprites/test3.png" type="Texture" id=10]
+[ext_resource path="res://scripts/scenepointers/test2pointer.gd" type="Script" id=11]
+
+[node name="main" instance=ExtResource( 1 )]
+playerScene = ExtResource( 4 )
+cameraScene = ExtResource( 6 )
+hudScene = ExtResource( 3 )
+pauseScene = ExtResource( 5 )
+
+[node name="startingpoint" type="Position2D" parent="." index="0"]
+position = Vector2( 267, 233 )
+
+[node name="tile" parent="." index="1" instance=ExtResource( 2 )]
+position = Vector2( 160, 252 )
+scale = Vector2( 20, 1 )
+
+[node name="scenetransition" parent="." index="2" instance=ExtResource( 7 )]
+position = Vector2( 13, 233 )
+
+[node name="Sprite" type="Sprite" parent="scenetransition" index="1"]
+texture = ExtResource( 10 )
+
+[node name="scenetransition2" parent="." index="3" instance=ExtResource( 7 )]
+position = Vector2( 301, 233 )
+
+[node name="Sprite" type="Sprite" parent="scenetransition2" index="1"]
+texture = ExtResource( 8 )
+
+[node name="Sprite" type="Sprite" parent="." index="4"]
+position = Vector2( 160, 162 )
+scale = Vector2( 4.875, 3.375 )
+texture = ExtResource( 9 )
+
+[node name="scenepointer" type="Node2D" parent="." index="5"]
+script = ExtResource( 11 )
